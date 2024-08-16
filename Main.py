@@ -45,8 +45,8 @@ def main():
         choice = input("Selecciona una opción: ")
 
         if choice == '1':
-            print("Algoritmo Dijkstra aún no implementado.")
-            # Aquí puedes implementar la funcionalidad de Dijkstra
+            for node in nodes.values():
+                node.dijkstra()
         elif choice == '2':
             start_node = input("Ingresa el nodo de inicio para Flooding: ")
             destination_node = input("Ingresa el nodo de destino para Flooding: ")

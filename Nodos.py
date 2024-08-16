@@ -1,5 +1,6 @@
 import socket
 import threading
+import heapq
 
 class Node:
     def __init__(self, name, port, neighbors=None):
@@ -55,4 +56,28 @@ class Node:
         self.listener_thread.join()
         print(f"Node {self.name} has closed its socket and stopped listening.")
 
-# Aquí puedes agregar más funcionalidades a la clase Node, como el algoritmo de Dijkstra, Flooding, etc.
+
+    def dijkstra(self):
+        distancias = {nodo: float('inf') for nodo in self.neighbors}
+        distancias[self.name] = 0
+        pq = [(0, self.name)]
+        heapq.heapify(pq)
+        predecesores = {nodo: None for nodo in self.neighbors}
+        predecesores[self.name] = self.name
+        
+        while pq:
+            distancia_actual, nodo_actual = heapq.heappop(pq)
+            
+            if distancia_actual > distancias[nodo_actual]:
+                continue
+            
+            for vecino, port in self.neighbors.items():
+                distancia = distancia_actual + 1  
+                
+                if distancia < distancias[vecino]:
+                    distancias[vecino] = distancia
+                    predecesores[vecino] = nodo_actual
+                    heapq.heappush(pq, (distancia, vecino))
+        
+        self.routing_table = {nodo: (distancia, predecesores[nodo]) for nodo, distancia in distancias.items()}
+        print(f"Tabla de ruteo para node {self.name}: {self.routing_table}")
