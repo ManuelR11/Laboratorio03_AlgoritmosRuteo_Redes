@@ -6,6 +6,7 @@ def load_config(file_name):
         data = json.load(file)
     return data['config']
 
+
 def get_names():
     return load_config('names.txt')
 
@@ -42,11 +43,10 @@ def main():
         choice = input("Selecciona una opción: ")
 
         if choice == '1':
-            print("Algoritmo Dijkstra aún no implementado.")
-            # Aquí puedes implementar la funcionalidad de Dijkstra
+            for node in nodes.values():
+                node.dijkstra()
         elif choice == '2':
             print("Algoritmo Flooding aún no implementado.")
-            # Aquí puedes implementar la funcionalidad de Flooding
         elif choice == '3':
             print("Saliendo...")
             break
