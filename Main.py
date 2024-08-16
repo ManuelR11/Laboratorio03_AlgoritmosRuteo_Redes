@@ -1,5 +1,6 @@
 import json
 from Nodos import Node
+from Flooding import Flooding
 
 def load_config(file_name):
     with open(file_name, 'r') as file:
@@ -37,6 +38,8 @@ def main():
         node = create_and_start_node(name, names, topology)
         nodes[name] = node
 
+    flooding = Flooding(nodes)  # Crear la instancia de Flooding con los nodos
+
     while True:
         show_menu()
         choice = input("Selecciona una opción: ")
@@ -45,8 +48,9 @@ def main():
             print("Algoritmo Dijkstra aún no implementado.")
             # Aquí puedes implementar la funcionalidad de Dijkstra
         elif choice == '2':
-            print("Algoritmo Flooding aún no implementado.")
-            # Aquí puedes implementar la funcionalidad de Flooding
+            start_node = input("Ingresa el nodo de inicio para Flooding: ")
+            message = input("Ingresa el mensaje para Flooding: ")
+            flooding.flood(start_node, message)  # Ejecutar el algoritmo de Flooding
         elif choice == '3':
             print("Saliendo...")
             break
