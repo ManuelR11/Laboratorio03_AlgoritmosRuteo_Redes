@@ -49,12 +49,19 @@ def main():
             # Aquí puedes implementar la funcionalidad de Dijkstra
         elif choice == '2':
             start_node = input("Ingresa el nodo de inicio para Flooding: ")
+            destination_node = input("Ingresa el nodo de destino para Flooding: ")
             message = input("Ingresa el mensaje para Flooding: ")
-            flooding.flood(start_node, message)  # Ejecutar el algoritmo de Flooding
-            # Esperar a que el algoritmo de Flooding termine antes de mostrar el menú nuevamente
+            
+            destination_reached = flooding.flood(start_node, destination_node, message)
+
             while flooding.is_running():
                 pass
+            
             print("El algoritmo de Flooding ha terminado.")
+            if destination_reached:
+                print(f"El mensaje llegó exitosamente al nodo destino: {destination_node}")
+            else:
+                print(f"El mensaje no pudo llegar al nodo destino: {destination_node}")
         elif choice == '3':
             print("Saliendo...")
             break
@@ -62,7 +69,7 @@ def main():
             print("Opción no válida. Intenta nuevamente.")
 
     for node in nodes.values():
-        node.close_socket()
+        node.close()
 
 if __name__ == "__main__":
     main()
