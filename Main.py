@@ -57,7 +57,6 @@ def main():
             while flooding.is_running():
                 pass
             
-            print("El algoritmo de Flooding ha terminado.")
             if destination_reached:
                 print(f"El mensaje llegó exitosamente al nodo destino: {destination_node}")
             else:
