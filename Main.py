@@ -1,6 +1,6 @@
 import json
 from Nodos import Node
-from Flooding import Flooding
+from flooding import Flooding
 
 def load_config(file_name):
     with open(file_name, 'r') as file:
@@ -8,10 +8,10 @@ def load_config(file_name):
     return data['config']
 
 def get_names():
-    return load_config('names.txt')
+    return load_config('Json/names.txt')
 
 def get_topology():
-    return load_config('topo.txt')
+    return load_config('Json/topo.txt')
 
 def create_and_start_node(node_name, names, topology):
     port = int(names[node_name])
@@ -51,11 +51,18 @@ def main():
             start_node = input("Ingresa el nodo de inicio para Flooding: ")
             message = input("Ingresa el mensaje para Flooding: ")
             flooding.flood(start_node, message)  # Ejecutar el algoritmo de Flooding
+            # Esperar a que el algoritmo de Flooding termine antes de mostrar el menú nuevamente
+            while flooding.is_running():
+                pass
+            print("El algoritmo de Flooding ha terminado.")
         elif choice == '3':
             print("Saliendo...")
             break
         else:
             print("Opción no válida. Intenta nuevamente.")
+
+    for node in nodes.values():
+        node.close_socket()
 
 if __name__ == "__main__":
     main()
