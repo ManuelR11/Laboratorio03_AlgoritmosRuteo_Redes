@@ -57,6 +57,7 @@ class Node:
         print(f"Node {self.name} has closed its socket and stopped listening.")
 
 
+'''
     def dijkstra(self):
         distancias = {nodo: float('inf') for nodo in self.neighbors}
         distancias[self.name] = 0
@@ -81,3 +82,4 @@ class Node:
         
         self.routing_table = {nodo: (distancia, predecesores[nodo]) for nodo, distancia in distancias.items()}
         print(f"Tabla de ruteo para node {self.name}: {self.routing_table}")
+'''

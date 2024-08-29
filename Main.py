@@ -1,6 +1,10 @@
+# Main.py
+
 import json
 from Nodos import Node
 from flooding import Flooding
+from Dijkstra import Dijkstra
+from link_state_routing import LinkStateRouting
 
 def load_config(file_name):
     with open(file_name, 'r') as file:
@@ -25,7 +29,8 @@ def show_menu():
     print("\nMenu:")
     print("1. Ejecutar algoritmo Dijkstra")
     print("2. Ejecutar algoritmo Flooding")
-    print("3. Salir")
+    print("3. Ejecutar algoritmo Link State Routing")
+    print("4. Salir")
 
 def main():
     names = get_names()
@@ -39,14 +44,18 @@ def main():
         nodes[name] = node
 
     flooding = Flooding(nodes)  # Crear la instancia de Flooding con los nodos
+    dijkstra = Dijkstra(nodes)  # Crear la instancia de Dijkstra con los nodos
+    link_state_routing = LinkStateRouting(nodes)  # Crear la instancia de Link State Routing con los nodos
 
     while True:
         show_menu()
         choice = input("Selecciona una opción: ")
 
         if choice == '1':
-            for node in nodes.values():
-                node.dijkstra()
+            start_node = input("Ingresa el nodo de inicio para Dijkstra: ")
+            destination_node = input("Ingresa el nodo de destino para Dijkstra: ")
+            message = input("Ingresa el mensaje para Dijkstra: ")
+            dijkstra.run_dijkstra(start_node, destination_node, message)  # Ejecutar el algoritmo Dijkstra
         elif choice == '2':
             start_node = input("Ingresa el nodo de inicio para Flooding: ")
             destination_node = input("Ingresa el nodo de destino para Flooding: ")
@@ -62,6 +71,11 @@ def main():
             else:
                 print(f"El mensaje no pudo llegar al nodo destino: {destination_node}")
         elif choice == '3':
+            start_node = input("Ingresa el nodo de inicio para Link State Routing: ")
+            destination_node = input("Ingresa el nodo de destino para Link State Routing: ")
+            message = input("Ingresa el mensaje para Link State Routing: ")
+            link_state_routing.run_link_state_routing(start_node, destination_node, message)  # Ejecutar Link State Routing
+        elif choice == '4':
             print("Saliendo...")
             break
         else:
